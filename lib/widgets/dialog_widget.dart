@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class DialogWidget extends StatelessWidget {
-  DialogWidget({super.key, required this.closeDialog});
+  DialogWidget({
+    super.key,
+    required this.textTracker,
+    required this.closeDialog,
+    required this.addTask,
+  });
   void Function() closeDialog;
+  void Function() addTask;
+  TextEditingController textTracker;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -22,6 +29,7 @@ class DialogWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(20),
               child: TextField(
+                controller: textTracker,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20.0),
                   border: OutlineInputBorder(),
@@ -32,9 +40,9 @@ class DialogWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.pets),
+                GestureDetector(onTap: addTask, child: Icon(Icons.pets)),
                 SizedBox(width: 40.0),
-                GestureDetector(child: Icon(Icons.close), onTap: closeDialog),
+                GestureDetector(onTap: closeDialog, child: Icon(Icons.close)),
               ],
             ),
           ],
